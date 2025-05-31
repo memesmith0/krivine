@@ -1,0 +1,2 @@
+# krivine
+python krivine machine
