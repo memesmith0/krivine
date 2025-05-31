@@ -221,21 +221,44 @@ import json;
 def krivine(terms):
     stack = []
     env = []
+    started = 0
     while True:
-        if terms == 0:
-            term=env[0][0]
+        print(terms)
+        print(stack)
+        print(env)
+        if started > 0 and len(stack) == 0 and len(env) == 0:
+            print("end")
+            return terms
+        if len(terms) > 1 and terms[0] != -1:
+            print("app")
+            stack = [[terms[1],env],stack]
+            if isinstance(terms[0],list):
+                terms=terms[0]
+            else:
+                terms=[terms[0]]
+        elif len(terms)==1 and terms[0] == 0:
+            print("zero")
+            if isinstance(env[0][0], int):
+                terms=[env[0][0]]
+            else:
+                terms=env[0][0]
             env=env[0][1]
         elif isinstance(terms, int):
+            print("succ")
             terms=terms-1
             env=env[1]
+            print(terms)
         elif terms[0] == -1:
-            terms.pop(0)
+            print("abs")
+            terms=terms[1:]
             env=[stack[0],env]
-            stack=stack[0][0]
-        elif len(terms) == 2 and isinstance(terms[0], list) and terms(stack[1], list):
-            stack = [[terms.pop(),env],stack]
+            stack=stack[1]
         else:
+            print("end")
             return terms
 
+        started=1
+
+print(krivine([[-1,0,0],[-1,0]]))
 
 
